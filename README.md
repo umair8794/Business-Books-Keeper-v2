@@ -7,7 +7,7 @@ The application is a rewrite of a personal project which was created in followin
 - Windows Presentation Foundation (WPF) - Frond end
 - SQlite - Database
 
-The intention / inspiration for this project is to keep data layer same but replace front end with latest technology stack to make it cross platform.
+The intention / inspiration for this project is to keep data layer same but replace front end with latest technology stack to make it cross platform. Hence the v2 in the repo name :)
 
 ## Technology stack
 
