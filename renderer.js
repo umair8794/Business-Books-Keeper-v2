@@ -1,6 +1,18 @@
-const information = document.getElementById("info");
+document
+  .getElementById("toggle-dark-mode")
+  .addEventListener("click", async () => {
+    const isDarkMode = await window.darkMode.toggle();
+    document.getElementById("theme-source").innerText = isDarkMode
+      ? "Dark"
+      : "Light";
+  });
 
-information.innerText = `This app is using Chrome (v${versions.chrome()}), Node.js (v${versions.node()}), and Electron (v${versions.electron()})`;
+document
+  .getElementById("reset-to-system")
+  .addEventListener("click", async () => {
+    await window.darkMode.system();
+    document.getElementById("theme-source").innerText = "System";
+  });
 
 // ipc tester code
 // const func = async () => {
