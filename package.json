@@ -1,7 +1,7 @@
 {
   "name": "business-books-keeper-v2",
   "version": "1.0.0",
-  "description": "Business Books Keeper v2 application using electron JS & SQLite",
+  "description": "Business Books Keeper v2 application using electron JS and SQLite",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/umair-farooq-osf/Business-Books-Keeper-v2.git"
   },
-  "author": "Umair Farooq <umairfarooq@live.com>",
+  "author": "Umair Farooq",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/umair-farooq-osf/Business-Books-Keeper-v2/issues"
