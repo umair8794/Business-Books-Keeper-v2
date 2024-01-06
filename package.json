@@ -1,23 +1,35 @@
 {
   "name": "business-books-keeper-v2",
   "version": "1.0.0",
-  "description": "Business Books Keeper application using electron JS, react JS & SQLite",
+  "description": "Business Books Keeper v2 application using electron JS & SQLite",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron-forge start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "electron-forge package",
+    "make": "electron-forge make --arch=x64 --platform=win32"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/umair-farooq-osf/Business-Books-Keeper-v2.git"
   },
-  "author": "Umair Farooq",
+  "author": "Umair Farooq <umairfarooq@live.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/umair-farooq-osf/Business-Books-Keeper-v2/issues"
   },
   "homepage": "https://github.com/umair-farooq-osf/Business-Books-Keeper-v2#readme",
   "devDependencies": {
+    "@electron-forge/cli": "^7.2.0",
+    "@electron-forge/maker-deb": "^7.2.0",
+    "@electron-forge/maker-rpm": "^7.2.0",
+    "@electron-forge/maker-squirrel": "^7.2.0",
+    "@electron-forge/maker-zip": "^7.2.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.2.0",
     "electron": "^28.1.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "electron-squirrel-startup": "^1.0.0"
   }
 }

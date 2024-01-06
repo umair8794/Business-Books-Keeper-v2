@@ -1,6 +1,13 @@
 const { app, BrowserWindow, ipcMain, nativeTheme } = require("electron");
 const path = require("node:path");
 
+require("dotenv").config();
+
+// run this as early in the main process as possible
+if (require("electron-squirrel-startup")) {
+  app.quit();
+}
+
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
@@ -8,6 +15,7 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
+    icon: "./assets/App-Icon.png",
   });
 
   win.loadFile("index.html");
