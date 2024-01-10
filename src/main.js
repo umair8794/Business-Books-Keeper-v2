@@ -1,5 +1,5 @@
 const { app, BrowserWindow } = require("electron");
-const path = require("path");
+const commonResources = require("../resources/common");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -10,7 +10,9 @@ const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
-    height: 600,
+    height: 700,
+    center: true,
+    title: commonResources.appTitle,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
