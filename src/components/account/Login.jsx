@@ -7,12 +7,40 @@ import AppIcon from "../../assets/App-Icon.png";
 import appResources from "../../resources/app";
 
 class Login extends Component {
+  state = {
+    loginResult: "",
+  };
+
   componentDidMount() {
     document.body.classList.add("no-margin");
   }
 
   componentWillUnmount() {
     document.body.classList.remove("no-margin");
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const username = formData.get("username") ?? "";
+    const password = formData.get("password") ?? "";
+
+    const validationResult =
+      (username ?? `missing-username`) || (password ?? `missing-password`);
+
+    if (validationResult) {
+      this.setState({
+        loginResult: validationResult,
+      });
+
+      return;
+    }
+
+    database.login({
+      username,
+      password,
+    });
   }
 
   render() {
@@ -38,7 +66,7 @@ class Login extends Component {
         <Box
           component="form"
           textAlign="center"
-          //   onSubmit={handleSubmit}
+          onSubmit={this.handleSubmit}
           noValidate
           sx={{ mt: 1 }}
         >
@@ -48,8 +76,10 @@ class Login extends Component {
             fullWidth
             id="username"
             label="Username"
-            name="email"
+            name="username"
             size="small"
+            error={this.state.loginResult === "missing-username"}
+            helperText="Please enter username"
             autoFocus
           />
           <TextField
@@ -61,6 +91,8 @@ class Login extends Component {
             name="password"
             type="password"
             size="small"
+            error={this.state.loginResult === "missing-password"}
+            helperText="Please enter password"
           />
           <Button
             type="submit"

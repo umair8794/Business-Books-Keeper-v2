@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen, Menu } = require("electron");
+const { app, BrowserWindow, screen, Menu, ipcMain } = require("electron");
 const appResources = require("./resources/app");
 const menuTemplateBuilder = require("./shared/menu");
 
@@ -54,3 +54,16 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+ipcMain.handle("login", (event, credentials) => {
+  const db = require("better-sqlite3")("bbk.db", {
+    fileMustExist: true,
+    verbose: console.log,
+  });
+  const result = db
+    .prepare("SELECT * from User WHERE username = ? AND password = ?")
+    .get(credentials.username, credentials.password);
+  db.close();
+  console.log("result: ", result);
+
+  return result;
+});
