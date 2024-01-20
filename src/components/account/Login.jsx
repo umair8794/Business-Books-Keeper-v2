@@ -32,11 +32,12 @@ class Login extends Component {
           sx={{ width: 96, height: 96 }}
           variant="square"
         ></Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" sx={{ marginTop: 2 }}>
           {appResources.name}
         </Typography>
         <Box
           component="form"
+          textAlign="center"
           //   onSubmit={handleSubmit}
           noValidate
           sx={{ mt: 1 }}
@@ -48,6 +49,7 @@ class Login extends Component {
             id="username"
             label="Username"
             name="email"
+            size="small"
             autoFocus
           />
           <TextField
@@ -58,10 +60,11 @@ class Login extends Component {
             label="Password"
             name="password"
             type="password"
+            size="small"
           />
           <Button
             type="submit"
-            fullWidth
+            size="large"
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
