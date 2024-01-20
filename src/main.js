@@ -13,21 +13,17 @@ Menu.setApplicationMenu(menu);
 const createWindow = () => {
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;
-  const windowWidth = width * 0.8;
-  const windowHeight = height * 0.8;
+  const windowWidth = width * 0.9;
+  const windowHeight = height * 0.9;
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
+    ...appResources.mainWindowConfigs,
     width: windowWidth,
     height: windowHeight,
-    minWidth: 800,
-    minHeight: 600,
-    center: true,
-    title: appResources.name,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
-    icon: "../assets/App-Icon.png",
   });
 
   // and load the index.html of the app.

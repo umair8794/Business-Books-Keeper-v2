@@ -27,4 +27,9 @@
  */
 
 // Add this to the end of the existing file
-import "./components/App.jsx";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+
+import "./components/App";
