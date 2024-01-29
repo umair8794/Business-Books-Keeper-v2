@@ -1,11 +1,21 @@
 import * as React from "react";
 import { Component } from "react";
-import { Typography, Box, Avatar, TextField, Button } from "@mui/material";
-import { formValidation } from "../../shared/utils/formValidation";
+import { useNavigate } from "react-router-dom";
+import {
+  Typography,
+  Box,
+  Avatar,
+  TextField,
+  Button,
+  Alert,
+  Snackbar,
+} from "@mui/material";
 
 import "./login.scss";
 import AppIcon from "../../assets/App-Icon.png";
 import appResources from "../../resources/app";
+import { formValidation } from "../../shared/utils/formValidation";
+import enums from "../../shared/utils/enum";
 
 class Login extends Component {
   state = {
@@ -19,6 +29,8 @@ class Login extends Component {
       invalid: false,
       helperText: "",
     },
+    isLoggingIn: false,
+    invalidLogin: false,
   };
 
   componentDidMount() {
@@ -59,9 +71,40 @@ class Login extends Component {
       return;
     }
 
-    database.login({
-      username: formData.get("username"),
-      password: formData.get("password"),
+    this.setState({
+      isLoggingIn: true,
+    });
+
+    database
+      .login({
+        username: formData.get("username"),
+        password: formData.get("password"),
+      })
+      .then((loginResult) => {
+        this.setState({
+          isLoggingIn: false,
+        });
+        this.handleLoginResult(loginResult);
+      });
+  };
+
+  handleLoginResult = (loginResult) => {
+    if (loginResult) {
+      if (loginResult.type === enums.userTypes.ADMIN) {
+        this.props.navigate("/admin");
+      } else if (loginResult.type === enums.userTypes.USER) {
+        this.props.navigate("/user");
+      }
+    } else {
+      this.setState({
+        invalidLogin: true,
+      });
+    }
+  };
+
+  handleClearLoginResult = () => {
+    this.setState({
+      invalidLogin: false,
     });
   };
 
@@ -120,11 +163,24 @@ class Login extends Component {
               this.state.password.invalid ? this.state.password.helperText : ""
             }
           />
+          <Snackbar
+            open={this.state.invalidLogin}
+            onClose={this.handleClearLoginResult}
+            autoHideDuration={2000}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            severity="error"
+          >
+            <Alert variant="filled" severity="error">
+              Invalid username or password
+            </Alert>
+          </Snackbar>
+
           <Button
             type="submit"
             size="large"
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            disabled={this.state.isLoggingIn}
           >
             Login
           </Button>
@@ -134,4 +190,8 @@ class Login extends Component {
   }
 }
 
-export default Login;
+function withNavigation(Component) {
+  return (props) => <Component {...props} navigate={useNavigate()} />;
+}
+
+export default withNavigation(Login);
