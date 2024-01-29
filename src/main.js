@@ -63,7 +63,6 @@ ipcMain.handle("login", (event, credentials) => {
     .prepare("SELECT * from User WHERE username = ? AND password = ?")
     .get(credentials.username, credentials.password);
   db.close();
-  console.log("result: ", result);
 
   return result;
 });

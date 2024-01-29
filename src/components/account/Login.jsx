@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Component } from "react";
 import { Typography, Box, Avatar, TextField, Button } from "@mui/material";
+import { formValidation } from "../../shared/utils/formValidation";
 
 import "./login.scss";
 import AppIcon from "../../assets/App-Icon.png";
@@ -8,7 +9,16 @@ import appResources from "../../resources/app";
 
 class Login extends Component {
   state = {
-    loginResult: "",
+    username: {
+      value: "",
+      invalid: false,
+      helperText: "",
+    },
+    password: {
+      value: "",
+      invalid: false,
+      helperText: "",
+    },
   };
 
   componentDidMount() {
@@ -19,29 +29,41 @@ class Login extends Component {
     document.body.classList.remove("no-margin");
   }
 
-  handleSubmit(e) {
+  handleOnChange = (e) => {
+    this.setState({
+      [e.target.name]: {
+        value: e.target.value,
+        invalid: false,
+        helperText: "",
+      },
+    });
+  };
+
+  handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    const username = formData.get("username") ?? "";
-    const password = formData.get("password") ?? "";
-
-    const validationResult =
-      (username ?? `missing-username`) || (password ?? `missing-password`);
+    const validationResult = formValidation("login", formData);
 
     if (validationResult) {
-      this.setState({
-        loginResult: validationResult,
+      const updatedState = {};
+
+      Object.keys(validationResult).forEach((fieldName) => {
+        updatedState[fieldName] = {
+          invalid: true,
+          helperText: validationResult[fieldName],
+        };
       });
 
+      this.setState(updatedState);
       return;
     }
 
     database.login({
-      username,
-      password,
+      username: formData.get("username"),
+      password: formData.get("password"),
     });
-  }
+  };
 
   render() {
     return (
@@ -74,25 +96,29 @@ class Login extends Component {
             margin="normal"
             required
             fullWidth
-            id="username"
             label="Username"
             name="username"
             size="small"
-            error={this.state.loginResult === "missing-username"}
-            helperText="Please enter username"
+            onChange={this.handleOnChange}
+            error={this.state.username.invalid}
+            helperText={
+              this.state.username.invalid ? this.state.username.helperText : ""
+            }
             autoFocus
           />
           <TextField
             margin="normal"
             required
             fullWidth
-            id="password"
             label="Password"
             name="password"
             type="password"
             size="small"
-            error={this.state.loginResult === "missing-password"}
-            helperText="Please enter password"
+            onChange={this.handleOnChange}
+            error={this.state.password.invalid}
+            helperText={
+              this.state.password.invalid ? this.state.password.helperText : ""
+            }
           />
           <Button
             type="submit"
