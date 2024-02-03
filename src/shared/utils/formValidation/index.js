@@ -12,7 +12,7 @@ module.exports = {
       return null;
     }
 
-    let errors = {};
+    const errors = {};
 
     Object.keys(validationRules).forEach((key) => {
       const fieldValue = formData.get(key);

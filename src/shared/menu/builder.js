@@ -1,5 +1,5 @@
 module.exports = function (id, label, role) {
-  let menuItem = {
+  const menuItem = {
     id,
     label,
   };

@@ -1,6 +1,6 @@
 import * as React from "react";
+import PropTypes from "prop-types";
 import { Component } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   Typography,
   Box,
@@ -190,8 +190,8 @@ class Login extends Component {
   }
 }
 
-function withNavigation(Component) {
-  return (props) => <Component {...props} navigate={useNavigate()} />;
-}
+Login.propTypes = {
+  navigate: PropTypes.func,
+};
 
-export default withNavigation(Login);
+export default Login;

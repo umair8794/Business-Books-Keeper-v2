@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen, Menu, ipcMain } = require("electron");
+const { app, BrowserWindow, screen, Menu } = require("electron");
 const appConfigs = require("./configs/app");
 const menuTemplateBuilder = require("./shared/menu");
 
@@ -22,12 +22,12 @@ const createWindow = () => {
     width: windowWidth,
     height: windowHeight,
     webPreferences: {
-      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY, // eslint-disable-line no-undef
     },
   });
 
   // and load the index.html of the app.
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY); // eslint-disable-line no-undef
 };
 
 // This method will be called when Electron has finished
