@@ -23,7 +23,10 @@ module.exports = {
         validationRules[key].required.value &&
         !fieldValue
       ) {
-        errors[key] = validationRules[key].required.message;
+        errors[key] = {
+          invalid: true,
+          helperText: validationRules[key].required.message,
+        };
       }
     });
 

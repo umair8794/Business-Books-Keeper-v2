@@ -1,19 +1,10 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { Component } from "react";
-import {
-  Typography,
-  Box,
-  Avatar,
-  TextField,
-  Button,
-  Alert,
-  Snackbar,
-} from "@mui/material";
+import { Box, TextField, Button, Alert, Snackbar } from "@mui/material";
+import AppAvatar from "../common/AppAvatar";
 
 import "./login.scss";
-import AppIcon from "../../assets/App-Icon.png";
-import { name as appName } from "../../configs/app";
 import { formValidation } from "../../shared/utils/formValidation";
 import enums from "../../shared/utils/enum";
 
@@ -58,16 +49,7 @@ class Login extends Component {
     const validationResult = formValidation("login", formData);
 
     if (validationResult) {
-      const updatedState = {};
-
-      Object.keys(validationResult).forEach((fieldName) => {
-        updatedState[fieldName] = {
-          invalid: true,
-          helperText: validationResult[fieldName],
-        };
-      });
-
-      this.setState(updatedState);
+      this.setState(validationResult);
       return;
     }
 
@@ -89,17 +71,14 @@ class Login extends Component {
   };
 
   handleLoginResult = (loginResult) => {
-    if (loginResult) {
-      if (loginResult.type === enums.userTypes.ADMIN) {
-        this.props.navigate("/admin");
-      } else if (loginResult.type === enums.userTypes.USER) {
-        this.props.navigate("/user");
-      }
-    } else {
+    if (!loginResult) {
       this.setState({
         invalidLogin: true,
       });
+      return;
     }
+
+    this.props.navigate(`/${enums.userTypes[loginResult.type]}`);
   };
 
   handleClearLoginResult = () => {
@@ -120,14 +99,8 @@ class Login extends Component {
           alignItems: "center",
         }}
       >
-        <Avatar
-          src={AppIcon}
-          sx={{ width: 96, height: 96 }}
-          variant="square"
-        ></Avatar>
-        <Typography component="h1" variant="h5" sx={{ marginTop: 2 }}>
-          {appName}
-        </Typography>
+        <AppAvatar />
+
         <Box
           component="form"
           textAlign="center"
