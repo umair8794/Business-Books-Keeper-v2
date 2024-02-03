@@ -13,7 +13,7 @@ import {
 
 import "./login.scss";
 import AppIcon from "../../assets/App-Icon.png";
-import appResources from "../../resources/app";
+import { name as appName } from "../../configs/app";
 import { formValidation } from "../../shared/utils/formValidation";
 import enums from "../../shared/utils/enum";
 
@@ -126,7 +126,7 @@ class Login extends Component {
           variant="square"
         ></Avatar>
         <Typography component="h1" variant="h5" sx={{ marginTop: 2 }}>
-          {appResources.name}
+          {appName}
         </Typography>
         <Box
           component="form"

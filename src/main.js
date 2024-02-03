@@ -1,5 +1,5 @@
 const { app, BrowserWindow, screen, Menu, ipcMain } = require("electron");
-const appResources = require("./resources/app");
+const appConfigs = require("./configs/app");
 const menuTemplateBuilder = require("./shared/menu");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -18,7 +18,7 @@ const createWindow = () => {
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    ...appResources.mainWindowConfigs,
+    ...appConfigs.mainWindowConfigs,
     width: windowWidth,
     height: windowHeight,
     webPreferences: {
@@ -54,15 +54,4 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
-ipcMain.handle("login", (event, credentials) => {
-  const db = require("better-sqlite3")("bbk.db", {
-    fileMustExist: true,
-    verbose: console.log,
-  });
-  const result = db
-    .prepare("SELECT * from User WHERE username = ? AND password = ?")
-    .get(credentials.username, credentials.password);
-  db.close();
-
-  return result;
-});
+require("./ipc/login");
