@@ -1,35 +1,37 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { Component } from "react";
-import { Box, TextField, Button, Alert, Snackbar } from "@mui/material";
+import { Box, TextField, Button } from "@mui/material";
 import AppAvatar from "../common/AppAvatar";
+import AppSnackBar from "../common/AppSnackBar";
 
-import "./login.scss";
-import { formValidation } from "../../shared/utils/formValidation";
+import {
+  defineForm,
+  validateForm,
+  retrieveFormValues,
+} from "../../shared/utils/forms";
 import enums from "../../shared/utils/enum";
 
 class Login extends Component {
-  state = {
-    username: {
-      value: "",
-      invalid: false,
-      helperText: "",
-    },
-    password: {
-      value: "",
-      invalid: false,
-      helperText: "",
-    },
-    isLoggingIn: false,
-    invalidLogin: false,
-  };
+  constructor(props) {
+    super(props);
+    this.formId = "login";
+    this.formDefinition = defineForm(this.formId);
 
-  componentDidMount() {
-    document.body.classList.add("no-margin");
-  }
+    const initialState = {
+      isLoggingIn: false,
+      isInvalidLogin: false,
+    };
 
-  componentWillUnmount() {
-    document.body.classList.remove("no-margin");
+    Object.keys(this.formDefinition).forEach((formField) => {
+      initialState[formField] = {
+        value: "",
+        invalid: false,
+        helperText: "",
+      };
+    });
+
+    this.state = initialState;
   }
 
   handleOnChange = (e) => {
@@ -46,7 +48,7 @@ class Login extends Component {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    const validationResult = formValidation("login", formData);
+    const validationResult = validateForm(this.formId, formData);
 
     if (validationResult) {
       this.setState(validationResult);
@@ -57,23 +59,20 @@ class Login extends Component {
       isLoggingIn: true,
     });
 
-    database
-      .login({
-        username: formData.get("username"),
-        password: formData.get("password"),
-      })
-      .then((loginResult) => {
-        this.setState({
-          isLoggingIn: false,
-        });
-        this.handleLoginResult(loginResult);
+    const credentials = retrieveFormValues(this.formId, formData);
+
+    database.login(credentials).then((loginResult) => {
+      this.setState({
+        isLoggingIn: false,
       });
+      this.handleLoginResult(loginResult);
+    });
   };
 
   handleLoginResult = (loginResult) => {
     if (!loginResult) {
       this.setState({
-        invalidLogin: true,
+        isInvalidLogin: true,
       });
       return;
     }
@@ -83,11 +82,12 @@ class Login extends Component {
 
   handleClearLoginResult = () => {
     this.setState({
-      invalidLogin: false,
+      isInvalidLogin: false,
     });
   };
 
   render() {
+    const formDef = this.formDefinition;
     return (
       <Box
         height="100vh"
@@ -108,45 +108,28 @@ class Login extends Component {
           noValidate
           sx={{ mt: 1 }}
         >
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            label="Username"
-            name="username"
-            size="small"
-            onChange={this.handleOnChange}
-            error={this.state.username.invalid}
-            helperText={
-              this.state.username.invalid ? this.state.username.helperText : ""
-            }
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            label="Password"
-            name="password"
-            type="password"
-            size="small"
-            onChange={this.handleOnChange}
-            error={this.state.password.invalid}
-            helperText={
-              this.state.password.invalid ? this.state.password.helperText : ""
-            }
-          />
-          <Snackbar
-            open={this.state.invalidLogin}
-            onClose={this.handleClearLoginResult}
-            autoHideDuration={2000}
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            severity="error"
-          >
-            <Alert variant="filled" severity="error">
-              Invalid username or password
-            </Alert>
-          </Snackbar>
+          {Object.keys(formDef).map((formField, index) => {
+            return (
+              <TextField
+                key={formDef[formField].name}
+                margin="normal"
+                required
+                fullWidth
+                label={formDef[formField].label}
+                name={formDef[formField].name}
+                type={formDef[formField].type}
+                size="small"
+                onChange={this.handleOnChange}
+                error={this.state[formField].invalid}
+                helperText={
+                  this.state[formField].invalid
+                    ? this.state[formField].helperText
+                    : ""
+                }
+                autoFocus={index === 0}
+              />
+            );
+          })}
 
           <Button
             type="submit"
@@ -157,6 +140,13 @@ class Login extends Component {
           >
             Login
           </Button>
+
+          <AppSnackBar
+            openWhen={this.state.isInvalidLogin}
+            handleOnClose={this.handleClearLoginResult}
+            type="error"
+            message="Invalid username or password"
+          />
         </Box>
       </Box>
     );

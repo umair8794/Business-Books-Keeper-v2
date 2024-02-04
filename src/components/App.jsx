@@ -1,8 +1,8 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { HashRouter, Routes, Route, useNavigate } from "react-router-dom";
-import { Container } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Container, CssBaseline } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 import defaultTheme from "../theme";
 
@@ -18,6 +18,7 @@ const App = () => {
   return (
     <React.StrictMode>
       <ThemeProvider theme={appTheme}>
+        <CssBaseline />
         <Container component="div" maxWidth="xl" disableGutters>
           <Routes>
             <Route exact path="/" element={<Login navigate={navigator} />} />
