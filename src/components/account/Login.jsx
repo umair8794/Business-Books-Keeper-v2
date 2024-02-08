@@ -9,7 +9,7 @@ import {
   defineForm,
   validateForm,
   retrieveFormValues,
-} from "../../shared/utils/forms";
+} from "../../ui/forms";
 import enums from "../../shared/utils/enum";
 
 class Login extends Component {
