@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Typography, Avatar } from "@mui/material";
 
-import { name as appName } from "../../configs/app";
+import { app as appResources } from "../../resources";
 import AppIcon from "../../ui/assets/App-Icon.png";
 
 class AppAvatar extends React.Component {
@@ -14,7 +14,7 @@ class AppAvatar extends React.Component {
           variant="square"
         ></Avatar>
         <Typography component="h1" variant="h5" sx={{ marginTop: 2 }}>
-          {appName}
+          {appResources.name}
         </Typography>
       </React.Fragment>
     );

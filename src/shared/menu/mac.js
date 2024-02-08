@@ -1,7 +1,7 @@
 const buildMenuItem = require("./builder");
-const appConfigs = require("../../configs/app");
+const appResources = require("../../resources").app;
 
 module.exports = {
-  ...buildMenuItem("app", appConfigs.name),
+  ...buildMenuItem("app", appResources.name),
   submenu: [buildMenuItem("quit", "Quit", "quit")],
 };

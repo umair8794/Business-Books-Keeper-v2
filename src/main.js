@@ -1,5 +1,5 @@
 const { app, BrowserWindow, screen, Menu } = require("electron");
-const appConfigs = require("./configs/app");
+const appResources = require("./resources/index").app;
 const menuTemplateBuilder = require("./shared/menu");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -18,7 +18,11 @@ const createWindow = () => {
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    ...appConfigs.mainWindowConfigs,
+    title: appResources.name,
+    minWidth: 800,
+    minHeight: 700,
+    icon: "./ui/assets/App-Icon.png",
+    center: true,
     width: windowWidth,
     height: windowHeight,
     webPreferences: {
