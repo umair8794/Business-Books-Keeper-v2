@@ -12,6 +12,8 @@ The intention / inspiration for this project is to keep data layer same but repl
 ## Technology stack
 
 - Electron JS
+- React JS
+- Material UI
 - SQlite (database)
 - ...
 
