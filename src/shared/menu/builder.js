@@ -1,4 +1,4 @@
-module.exports = function (id, label, role) {
+export default function (id, label, role) {
   const menuItem = {
     id,
     label,
@@ -9,4 +9,4 @@ module.exports = function (id, label, role) {
   }
 
   return menuItem;
-};
+}

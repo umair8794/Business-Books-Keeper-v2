@@ -1,7 +1,7 @@
-const buildMenuItem = require("./builder");
-const appResources = require("../../resources").app;
+import buildMenuItem from "./builder";
+import { app as appResources } from "../../resources";
 
-module.exports = {
+export default {
   ...buildMenuItem("app", appResources.name),
   submenu: [buildMenuItem("quit", "Quit", "quit")],
 };

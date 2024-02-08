@@ -1,6 +1,6 @@
-const buildMenuItem = require("./builder");
+import buildMenuItem from "./builder";
 
-module.exports = {
+export default {
   ...buildMenuItem("adminPanel", "Admin Panel"),
   submenu: [
     buildMenuItem("adminPanelHome", "Home"),
