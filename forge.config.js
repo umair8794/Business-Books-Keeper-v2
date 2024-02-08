@@ -39,7 +39,7 @@ module.exports = {
               js: "./src/ui/renderer.js",
               name: "main_window",
               preload: {
-                js: "./src/preload.js",
+                js: "./src/middleware/preload.js",
               },
             },
           ],
