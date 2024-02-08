@@ -7,7 +7,7 @@ module.exports = {
     title: appName,
     minWidth: 800,
     minHeight: 700,
-    icon: "../assets/App-Icon.png",
+    icon: "../ui/assets/App-Icon.png",
     center: true,
   },
   databaseConfigs: {
