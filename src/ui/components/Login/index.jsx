@@ -2,8 +2,8 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { Component } from "react";
 import { Box, TextField, Button } from "@mui/material";
-import AppAvatar from "../common/AppAvatar";
-import AppSnackBar from "../common/AppSnackBar";
+import AppAvatar from "../AppAvatar";
+import AppSnackBar from "../AppSnackBar";
 
 import { defineForm, validateForm, retrieveFormValues } from "../../forms";
 import enums from "../../../utils/enum";

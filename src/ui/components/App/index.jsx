@@ -4,11 +4,11 @@ import { HashRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { Container, CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
 
-import defaultTheme from "../theme";
+import defaultTheme from "../../theme";
 
-import Login from "./account/Login";
-import AdminPanel from "./user/AdminPanel";
-import UserPanel from "./user/UserPanel";
+import Login from "../Login";
+import AdminPanel from "../AdminPanel";
+import UserPanel from "../UserPanel";
 
 const appTheme = createTheme(defaultTheme);
 
