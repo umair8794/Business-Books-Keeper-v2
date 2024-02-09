@@ -5,8 +5,8 @@ import { Box, TextField, Button } from "@mui/material";
 import AppAvatar from "../common/AppAvatar";
 import AppSnackBar from "../common/AppSnackBar";
 
-import { defineForm, validateForm, retrieveFormValues } from "../../ui/forms";
-import enums from "../../utils/enum";
+import { defineForm, validateForm, retrieveFormValues } from "../../forms";
+import enums from "../../../utils/enum";
 
 class Login extends Component {
   constructor(props) {

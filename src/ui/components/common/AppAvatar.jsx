@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Typography, Avatar } from "@mui/material";
 
-import { app as appResources } from "../../resources";
-import AppIcon from "../../ui/assets/App-Icon.png";
+import { app as appResources } from "../../../resources";
+import AppIcon from "../../assets/App-Icon.png";
 
 class AppAvatar extends React.Component {
   render() {

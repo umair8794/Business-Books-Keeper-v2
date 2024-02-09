@@ -4,7 +4,7 @@ import { HashRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { Container, CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
 
-import defaultTheme from "../ui/theme";
+import defaultTheme from "../theme";
 
 import Login from "./account/Login";
 import AdminPanel from "./user/AdminPanel";
