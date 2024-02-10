@@ -55,7 +55,7 @@ describe("When component Login is rendered", () => {
     expect(passwordError).toBeInTheDocument();
 
     // Type something after error is present on username field & expect error is gone
-    await userEvent.type(
+    await user.type(
       screen.getByRole("textbox", { name: usernameInputSelector }),
       "test"
     );
@@ -65,7 +65,7 @@ describe("When component Login is rendered", () => {
     expect(usernameError).not.toBeInTheDocument();
 
     // Type something after error is present on password field & expect error is gone
-    await userEvent.type(screen.getByLabelText(passwordInputSelector), "test");
+    await user.type(screen.getByLabelText(passwordInputSelector), "test");
     expect(Array.from(passwordLabel.classList)).not.toContain(errorClass);
     expect(passwordError).not.toBeInTheDocument();
   });
