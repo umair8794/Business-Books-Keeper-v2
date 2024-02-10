@@ -107,11 +107,12 @@ class Login extends Component {
           {Object.keys(formDef).map((formField, index) => {
             return (
               <TextField
-                key={formDef[formField].name}
+                key={formDef[formField].id}
                 margin="normal"
                 required
                 fullWidth
                 label={formDef[formField].label}
+                id={formDef[formField].id}
                 name={formDef[formField].name}
                 type={formDef[formField].type}
                 size="small"
@@ -123,6 +124,9 @@ class Login extends Component {
                     : ""
                 }
                 autoFocus={index === 0}
+                InputLabelProps={{
+                  "data-testid": `${formDef[formField].id}-label`,
+                }}
               />
             );
           })}

@@ -1,5 +1,6 @@
 module.exports = {
   username: {
+    id: "username",
     label: "Username",
     name: "username",
     type: "text",
@@ -8,6 +9,7 @@ module.exports = {
     },
   },
   password: {
+    id: "password",
     label: "Password",
     name: "password",
     type: "password",
